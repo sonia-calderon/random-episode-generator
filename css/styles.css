@@ -1,0 +1,70 @@
+/* ------------------------- FONTS ------------------------------------------- */
+@font-face {
+    font-family: GloriaHallelujah;
+    src: url(../assets/fonts/GloriaHallelujah-Regular.woff);
+}
+
+/* ------------------------- COLORS ------------------------------------------- */
+:root {
+    --yellow: #F8DB27;
+    --black: #000000;
+}
+
+/* ------------------------- GENERAL ------------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(../assets/images/the-simpsons-clouds.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#logo {
+    max-width: 300px;
+    height: auto;
+}
+
+button {
+    background-color: var(--yellow);
+    border: 1px solid var(--black);
+    height: 50px;
+    width: 220px;
+    cursor: pointer;
+    font-family: 'GloriaHallelujah';
+    font-size: 20px;
+    color: var(--black);
+}
+
+button:hover {
+    background-color: transparent;
+}
+
+/* ------------------------- RESPONSIVE ------------------------------------------- */
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    #logo {
+        max-width: 400px;
+    }
+
+    button {
+        height: 60px;
+        width: 280px;
+        font-size: 24px;
+    }
+}
