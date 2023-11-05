@@ -32,13 +32,13 @@ if(mainBox){
     fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
+            
             data.forEach(element => {
                 idsArray.push({
                     id: element.id,
                     title: element.name,
                     image: element.image,
-                    description: element.summary.slice(3, -4),
+                    description: element.summary,
                     season: element.season,
                     episode: element.number
                 });
@@ -81,7 +81,7 @@ function createEpisodeBox(episode){
     mainDiv.appendChild(subDiv);
 
     const p = document.createElement('p');
-    const pText = document.createTextNode(episode.description);
+    const pText = document.createTextNode(episode.description.slice(3, -4));
     subDiv.appendChild(p);
     p.appendChild(pText);
 
