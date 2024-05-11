@@ -1,6 +1,7 @@
 const apiUrl = 'https://api.tvmaze.com/shows/83/episodes';
-const btnRandom = document.querySelector('.btn-random');
-const mainBox = document.querySelector('.box');
+const btnRandom1 = document.querySelector('.btn-random-1');
+const btnRandom2 = document.querySelector('.btn-random-2');
+const mainBox = document.querySelector('.contentBox');
 
 let idsArray = [];
 
@@ -8,8 +9,9 @@ let idsArray = [];
 const urlSearchParams = new URLSearchParams(window.location.search);
 const urlId = urlSearchParams.get("id");
 
-if(btnRandom){
-    btnRandom.addEventListener('click', () => {
+
+if(btnRandom1){
+    btnRandom1.addEventListener('click', () => {
         fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
@@ -28,6 +30,7 @@ if(btnRandom){
     })
 }
 
+
 if(mainBox){
     fetch(apiUrl)
         .then((response) => response.json())
@@ -45,57 +48,100 @@ if(mainBox){
                 
             });
             
-            //console.log(idsArray)
             idsArray.forEach((episode) => {
-                //console.log(episode)
                 if(urlId == episode.id){
                     createEpisodeBox(episode);
                 }
             })
+
+           
+            
         })
-    
+
+        
 }
 
 function createEpisodeBox(episode){
     const section = document.createElement('section');
     mainBox.appendChild(section);
 
+    const contentBoxHeader = document.createElement('div');
+    contentBoxHeader.className = ('contentBoxHeader');
+    section.appendChild(contentBoxHeader); 
+
+    const labelsBox = document.createElement('div');
+    labelsBox.className = ('labelsBox');
+    contentBoxHeader.appendChild(labelsBox);
+
+    const h6Season = document.createElement('h6');
+    const h6SeasonText = document.createTextNode('S' + episode.season);
+    labelsBox.appendChild(h6Season);
+    h6Season.appendChild(h6SeasonText);
+
+    const h6Episode = document.createElement('h6');
+    const h6EpisodeText = document.createTextNode('E' + episode.episode);
+    labelsBox.appendChild(h6Episode);
+    h6Episode.appendChild(h6EpisodeText);
+
+    const contentBoxMain = document.createElement('div');
+    contentBoxMain.className = ('contentBoxMain');
+    section.appendChild(contentBoxMain); 
+
     const h1 = document.createElement('h1');
     const h1Text = document.createTextNode(episode.title);
-    section.appendChild(h1); 
+    contentBoxMain.appendChild(h1); 
     h1.appendChild(h1Text);
     
-
-    const mainDiv = document.createElement('div');
-    mainDiv.className = ('contentBox');
-    section.appendChild(mainDiv); 
+    const contentBoxCard = document.createElement('div');
+    contentBoxCard.className = ('contentBoxCard');
+    contentBoxMain.appendChild(contentBoxCard); 
 
     const img = document.createElement('img');
     img.className = ('episodeImg');
     img.setAttribute('alt', episode.title);
     img.src = episode.image.medium;
-    mainDiv.appendChild(img);
+    contentBoxCard.appendChild(img);
 
-    const subDiv = document.createElement('div');
-    subDiv.className = ('infoBox');
-    mainDiv.appendChild(subDiv);
+    const infoBox = document.createElement('div');
+    infoBox.className = ('infoBox');
+    contentBoxCard.appendChild(infoBox);
 
     const p = document.createElement('p');
     const pText = document.createTextNode(episode.description.slice(3, -4));
-    subDiv.appendChild(p);
+    infoBox.appendChild(p);
     p.appendChild(pText);
 
-    const infoDiv = document.createElement('div');
-    infoDiv.className = ('cardsBox');
-    subDiv.appendChild(infoDiv);
+    const contentBoxButton = document.createElement('div');
+    contentBoxButton.className = ('contentBoxButton');
+    section.appendChild(contentBoxButton); 
 
-    const h6Season = document.createElement('h6');
-    const h6SeasonText = document.createTextNode('S' + episode.season);
-    infoDiv.appendChild(h6Season);
-    h6Season.appendChild(h6SeasonText);
+    const button = document.createElement('button');
+    button.className = ('btn-random-2');
+    contentBoxButton.appendChild(button); 
 
-    const h6Episode = document.createElement('h6');
-    const h6EpisodeText = document.createTextNode('E' + episode.episode);
-    infoDiv.appendChild(h6Episode);
-    h6Episode.appendChild(h6EpisodeText);
+    const span = document.createElement('span');
+    const spanText = document.createTextNode('RANDOM EPISODE');
+    button.appendChild(span); 
+    span.appendChild(spanText);
+
+    // Agregar event listener a btnRandom2
+    button.addEventListener('click', () => {
+        // Replicar la funcionalidad de btnRandom1 click
+        fetch(apiUrl)
+            .then((response) => response.json())
+            .then((data) => {
+                data.forEach(element => {
+                    idsArray.push(element.id);
+                });
+                
+                // Generate a random index
+                let randomIndex = Math.floor(Math.random() * idsArray.length);
+    
+                // Select the random ID
+                let randomID = idsArray[randomIndex];
+
+                window.location.href = `./episode.html?id=${randomID}`;
+            })
+    });
+    
 }
