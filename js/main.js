@@ -1,6 +1,5 @@
 const apiUrl = 'https://api.tvmaze.com/shows/83/episodes';
 const btnRandom1 = document.querySelector('.btn-random-1');
-const btnRandom2 = document.querySelector('.btn-random-2');
 const mainBox = document.querySelector('.contentBox');
 
 let idsArray = [];
@@ -8,7 +7,6 @@ let idsArray = [];
 // extracting parameters from url
 const urlSearchParams = new URLSearchParams(window.location.search);
 const urlId = urlSearchParams.get("id");
-
 
 if(btnRandom1){
     btnRandom1.addEventListener('click', () => {
@@ -52,13 +50,8 @@ if(mainBox){
                 if(urlId == episode.id){
                     createEpisodeBox(episode);
                 }
-            })
-
-           
-            
-        })
-
-        
+            }) 
+        })    
 }
 
 function createEpisodeBox(episode){
@@ -124,9 +117,7 @@ function createEpisodeBox(episode){
     button.appendChild(span); 
     span.appendChild(spanText);
 
-    // Agregar event listener a btnRandom2
     button.addEventListener('click', () => {
-        // Replicar la funcionalidad de btnRandom1 click
         fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
