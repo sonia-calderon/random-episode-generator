@@ -3,6 +3,7 @@ const btnRandom1 = document.querySelector('.btn-random-1');
 const mainBox = document.querySelector('.contentBox');
 
 let idsArray = [];
+let idsArrayEpisode = [];
 
 // extracting parameters from url
 const urlSearchParams = new URLSearchParams(window.location.search);
@@ -16,7 +17,7 @@ if(btnRandom1){
                 data.forEach(element => {
                     idsArray.push(element.id);
                 });
-                
+               
                 // Generate a random index
                 let randomIndex = Math.floor(Math.random() * idsArray.length);
     
@@ -27,7 +28,6 @@ if(btnRandom1){
             })
     })
 }
-
 
 if(mainBox){
     fetch(apiUrl)
@@ -118,18 +118,19 @@ function createEpisodeBox(episode){
     span.appendChild(spanText);
 
     button.addEventListener('click', () => {
+       
         fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
                 data.forEach(element => {
-                    idsArray.push(element.id);
+                    idsArrayEpisode.push(element.id);
                 });
-                
+                debugger
                 // Generate a random index
-                let randomIndex = Math.floor(Math.random() * idsArray.length);
+                let randomIndex = Math.floor(Math.random() * idsArrayEpisode.length);
     
                 // Select the random ID
-                let randomID = idsArray[randomIndex];
+                let randomID = idsArrayEpisode[randomIndex];
 
                 window.location.href = `./episode.html?id=${randomID}`;
             })
