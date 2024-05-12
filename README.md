@@ -15,7 +15,7 @@
 - Dependency on External API
 
 ## Link
-
+https://sonia-calderon.github.io/random-episode-generator/
 
 ## Other comments
 API Link: https://api.tvmaze.com/shows/83/episodes
